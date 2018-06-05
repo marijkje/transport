@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+ 
+html { 
+background-color: #c2d2ac;
+}
+
+body, p, legend, label, input, textArea {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    box-sizing: border-box;
+    text-align: right;
+    width: 100%;
+    padding: 10px 40px;
+    background-color: #88A85D;
+    overflow: hidden;
+    color: #fff;
+}
+header .title{
+    max-width: 400px;
+    float: left;
+    margin-left: 40px;
+}
+
+
+header h1{
+    margin: 0;
+    font-size: 40px;
+    color: #fff;
+}
+
+header h2{
+    font-size: 15px;
+    color: #403F99;
+    letter-spacing:7px;
+}
+
+div#logo {
+    float: left;
+    background-image: url(images/transport-solidaire.png);
+    width: 99px;
+    height: 71px;
+    padding: 0;
+}
+
+.erreur {
+    font-style: italic;
+    color: #F37042;/*orange*/
+    background-color: white;
+}
+
+.succes {
+    font-style: italic;
+    color: #403F99;/*blue*/
+    background-color: white;
+}
+
+.user{
+    margin-top: 20px;
+    color: #403F99;
+}
+
+.email{
+    max-height: 500px !important;
+    width: 500px !important;
+}
