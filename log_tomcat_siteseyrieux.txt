@@ -1,0 +1,167 @@
+sept. 12, 2018 11:08:02 AM org.apache.catalina.core.ApplicationContext log
+INFOS: Manager: list: Listing contexts for virtual host 'siteseyrieux.fr'
+sept. 12, 2018 11:08:17 AM org.apache.catalina.startup.HostConfig undeploy
+INFOS: Repli (undeploy) de l'application web ayant pour chemin de contexte /Transport
+sept. 12, 2018 11:09:49 AM org.apache.tomcat.util.digester.Digester fatalError
+GRAVE: Parse Fatal Error at line 2 column 3: L'instruction de traitement doit commencer par le nom de la cible.
+org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 3; L'instruction de traitement doit commencer par le nom de la cible.
+        at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:198)
+        at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+        at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+        at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+        at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1465)
+        at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanPI(XMLScanner.java:711)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:912)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:606)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:504)
+        at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:849)
+        at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:778)
+        at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+        at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1213)
+        at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:642)
+        at org.apache.tomcat.util.digester.Digester.parse(Digester.java:1595)
+        at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:972)
+        at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:2021)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:473)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1152)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:622)
+        at java.lang.Thread.run(Thread.java:748)
+
+sept. 12, 2018 11:09:50 AM org.apache.catalina.startup.HostConfig deployWAR
+GRAVE: Erreur lors du déploiement du descripteur de configuration /var/lib/tomcat7/psa-webapps/siteseyrieux.fr/Transport.war
+org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 3; L'instruction de traitement doit commencer par le nom de la cible.
+        at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1239)
+        at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:642)
+        at org.apache.tomcat.util.digester.Digester.parse(Digester.java:1595)
+        at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:972)
+        at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:2021)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:473)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1152)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:622)
+        at java.lang.Thread.run(Thread.java:748)
+
+sept. 12, 2018 11:09:50 AM org.apache.catalina.startup.HostConfig deployWAR
+INFOS: Déploiement de l'archive /var/lib/tomcat7/psa-webapps/siteseyrieux.fr/Transport.war de l'application web
+sept. 12, 2018 11:09:52 AM org.apache.tomcat.util.digester.Digester fatalError
+GRAVE: Parse Fatal Error at line 2 column 3: L'instruction de traitement doit commencer par le nom de la cible.
+org.xml.sax.SAXParseException; systemId: jar:file:/var/lib/tomcat7/psa-webapps/siteseyrieux.fr/Transport.war!/META-INF/context.xml; lineNumber: 2; columnNumber: 3; L'instruction de traitement doit commencer par le nom de la cible.
+        at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:198)
+        at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+        at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+        at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+        at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1465)
+        at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanPI(XMLScanner.java:711)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:912)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:606)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:504)
+        at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:849)
+        at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:778)
+        at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+        at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1213)
+        at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:642)
+        at org.apache.tomcat.util.digester.Digester.parse(Digester.java:1576)
+        at org.apache.catalina.startup.ContextConfig.processContextConfig(ContextConfig.java:641)
+        at org.apache.catalina.startup.ContextConfig.contextConfig(ContextConfig.java:603)
+        at org.apache.catalina.startup.ContextConfig.init(ContextConfig.java:839)
+        at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:399)
+        at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:117)
+        at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:90)
+        at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:388)
+        at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:103)
+        at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:135)
+        at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:1017)
+        at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:993)
+        at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:652)
+        at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:1127)
+        at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:2021)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:473)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1152)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:622)
+        at java.lang.Thread.run(Thread.java:748)
+
+sept. 12, 2018 11:09:52 AM org.apache.catalina.startup.ContextConfig processContextConfig
+GRAVE: Parse error in context.xml for /Transport
+org.xml.sax.SAXParseException; systemId: jar:file:/var/lib/tomcat7/psa-webapps/siteseyrieux.fr/Transport.war!/META-INF/context.xml; lineNumber: 2; columnNumber: 3; L'instruction de traitement doit commencer par le nom de la cible.
+        at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:198)
+        at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+        at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:400)
+        at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:327)
+        at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1465)
+        at com.sun.org.apache.xerces.internal.impl.XMLScanner.scanPI(XMLScanner.java:711)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:912)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:606)
+        at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:504)
+        at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:849)
+        at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:778)
+        at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+        at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1213)
+        at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:642)
+        at org.apache.tomcat.util.digester.Digester.parse(Digester.java:1576)
+        at org.apache.catalina.startup.ContextConfig.processContextConfig(ContextConfig.java:641)
+        at org.apache.catalina.startup.ContextConfig.contextConfig(ContextConfig.java:603)
+        at org.apache.catalina.startup.ContextConfig.init(ContextConfig.java:839)
+        at org.apache.catalina.startup.ContextConfig.lifecycleEvent(ContextConfig.java:399)
+        at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:117)
+        at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:90)
+        at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:388)
+        at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:103)
+        at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:135)
+        at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:1017)
+        at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:993)
+        at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:652)
+        at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:1127)
+        at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:2021)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:473)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1152)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:622)
+        at java.lang.Thread.run(Thread.java:748)
+
+sept. 12, 2018 11:09:52 AM org.apache.catalina.startup.ContextConfig processContextConfig
+GRAVE: S'est produite à la ligne 2 colonne 3
+sept. 12, 2018 11:09:52 AM org.apache.catalina.core.ContainerBase addChildInternal
+GRAVE: ContainerBase.addChild: start:
+org.apache.catalina.LifecycleException: Failed to start component [/Transport]
+        at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:162)
+        at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:1017)
+        at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:993)
+        at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:652)
+        at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:1127)
+        at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:2021)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:473)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1152)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:622)
+        at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.catalina.LifecycleException: Failed to process either the global, per-host or context-specific context.xml file therefore the [/Transport] Context cannot be started.
+        at org.apache.catalina.startup.FailedContext.startInternal(FailedContext.java:158)
+        at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:145)
+        ... 10 more
+
+sept. 12, 2018 11:09:52 AM org.apache.catalina.startup.HostConfig deployWAR
+GRAVE: Erreur lors du déploiement de l'archive /var/lib/tomcat7/psa-webapps/siteseyrieux.fr/Transport.war de l'application web
+java.lang.IllegalStateException: ContainerBase.addChild: start: org.apache.catalina.LifecycleException: Failed to start component [/Transport]
+        at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:1021)
+        at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:993)
+        at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:652)
+        at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:1127)
+        at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:2021)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:473)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1152)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:622)
+        at java.lang.Thread.run(Thread.java:748)
+
+sept. 12, 2018 11:09:52 AM org.apache.catalina.startup.HostConfig deployWAR
+INFOS: Deployment of web application archive /var/lib/tomcat7/psa-webapps/siteseyrieux.fr/Transport.war has finished in 2 285 ms
+sept. 12, 2018 11:11:01 AM org.apache.catalina.core.ApplicationContext log
+INFOS: Manager: list: Listing contexts for virtual host 'siteseyrieux.fr'
+sept. 12, 2018 11:56:38 AM org.apache.catalina.core.ApplicationContext log
+INFOS: Manager: stop: Stopping web application '/Transport'
+sept. 12, 2018 11:56:43 AM org.apache.catalina.startup.HostConfig undeploy
+INFOS: Repli (undeploy) de l'application web ayant pour chemin de contexte /Transport
+sept. 12, 2018 11:58:19 AM org.apache.catalina.core.ApplicationContext log
+INFOS: Manager: list: Listing contexts for virtual host 'siteseyrieux.fr'

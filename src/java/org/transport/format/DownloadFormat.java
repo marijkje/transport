@@ -4,6 +4,7 @@
 package org.transport.format;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.transport.readwrite.PersonRW;
 import org.transport.readwrite.DoneRW;
@@ -16,7 +17,8 @@ import org.transport.readwrite.DriveRW;
  */
 public class DownloadFormat {
    
-    private final HttpServletRequest request;
+//    private final HttpServletRequest request;
+    private final HttpServletResponse response;
     private final HttpSession session;
     private String personInfo;
     private String driveInfo;
@@ -24,11 +26,9 @@ public class DownloadFormat {
     private String message;
     private String filePath;
     
-    public DownloadFormat(HttpServletRequest request)
+    public DownloadFormat(HttpServletRequest request, HttpServletResponse response)
     {
-        this.filePath = request.getServletContext().getRealPath("/downloads/");
-
-        this.request = request;
+        this.response = response;
         this.session = request.getSession();
         this.action = request.getParameter("action");
         this.message = "";
@@ -43,6 +43,8 @@ public class DownloadFormat {
     
     public void action()
     {
+        this.filePath = "downloads/";
+        
         switch(action)
         {
             case "Chauffeur":   personInfo = "drivers";
@@ -70,15 +72,15 @@ public class DownloadFormat {
     {
         filePath += personInfo + ".csv";
         PersonRW addr = new PersonRW(personInfo);
-        message = addr.getCSV(filePath);
-        session.setAttribute("url", "downloads/" + personInfo + ".csv");
+        message = addr.writeCSV(response, filePath);
+        session.setAttribute("url", filePath);
     }
 
     private void getDriveList()
     {
         filePath += driveInfo + ".csv";
         DriveRW drv = new DriveRW(driveInfo);
-        message = drv.getCSV(filePath);
+        message = drv.writeCSV(response, filePath);
         session.setAttribute("url", "downloads/" + driveInfo + ".csv");
     }
 
@@ -86,7 +88,7 @@ public class DownloadFormat {
     {
         filePath += "done.csv";
         DoneRW done = new DoneRW();
-        message = done.getCSV(filePath);
+        message = done.writeCSV(response, filePath);
         session.setAttribute("url", "downloads/done.csv");
     }
 

@@ -23,6 +23,7 @@ public class Person implements Serializable
     private String email;
     private String remarques;
     private int nombre;
+    private int places;
     private boolean charte;
     private String contact;
     private String contacttel;
@@ -89,6 +90,11 @@ public class Person implements Serializable
     public int getNombre()
     {
         return nombre;
+    }
+
+    public int getPlaces()
+    {
+        return places;
     }
 
     public boolean getCharte()
@@ -169,6 +175,11 @@ public class Person implements Serializable
     public void setNombre(int nombre)
     {
         this.nombre = nombre;
+    }
+    
+    public void setPlaces(int places)
+    {
+        this.places = places;
     }
     
     public void setCharte(boolean charte)

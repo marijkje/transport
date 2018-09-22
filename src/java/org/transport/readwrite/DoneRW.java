@@ -4,7 +4,6 @@
 package org.transport.readwrite;
 
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.sql.ResultSet;
@@ -14,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import org.transport.beans.Drive;
 import org.transport.beans.Person;
 
@@ -117,7 +118,7 @@ public class DoneRW
                     + "codedepart, codearrivee, "
                     + "communedepart, communearrivee, depart, ";
         if (drive.getRetour()!= null) sel += "retour, ";
-        sel += "kilometres, motif) ";
+        sel += "places, kilometres, motif) ";
         String val = "( '"  + driver.getNom() + "', '"
                             + driver.getPrenom() + "', '"
                             + client.getNom() + "', '"
@@ -130,7 +131,8 @@ public class DoneRW
                             + drive.getVilleArrivee() + "', '"
                             + drive.getDepart() + "', '";
         if (drive.getRetour()!= null) val += drive.getRetour() + "', '";
-        val += drive.getKilometres() + "', '"
+        val += drive.getPlaces() + "', '"
+                            + drive.getKilometres() + "', '"
                             + drive.getMotif() + "' )";
 
         Statement statement;
@@ -152,6 +154,7 @@ public class DoneRW
     
     public List<Drive> readAll()
     {
+        int cnt = 0;
         List<Drive> all = new ArrayList<>();
         PersonRW addr;
 
@@ -188,6 +191,7 @@ public class DoneRW
                 addr = new PersonRW("clients");
                 drive.setClient(addr.read(client));
                 all.add(drive);
+                cnt++;
             }
         } catch ( SQLException e ) {
 
@@ -272,50 +276,75 @@ public class DoneRW
     /**
      *  Write data in CSV file
      *  
-     * @param filePath
+     * @param response
+     * @param path
      * @return 
      */
-    public String getCSV(String filePath)
+    public String writeCSV(HttpServletResponse response, String path)
     {
-        BufferedWriter bw;
-        List<Drive> drives = readAll();
-        Person driver, client;
-        
+        int cnt =0;
+        Statement statement;
+        ResultSet resultat = null;
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment;filename=" + path);
+        ServletOutputStream out;
         try 
         {
-            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8"));
-            String line = ""; 
-            // writing header
-            line += "nomchauffeur;prenomchauffeur;nomclient;prenomclient;adressedepart;adressearrivee;"
-                    + "codedepart;codearrivee;"
-                    + "communedepart;communearrivee;depart;retour;kilometres;motif"; 
-            bw.write(line);
-            bw.newLine();
-            // and the data
-            for (Drive drive : drives) {
-                driver = drive.getDriver();
-                client = drive.getClient();
-                
-                line =  driver.getNom() + ";" +
-                        driver.getPrenom() + ";" +
-                        client.getNom() + ";" +
-                        client.getPrenom() + ";" +
-                        drive.getAdresseDepart() + ";" +
-                        drive.getAdresseArrivee() + ";" +
-                        drive.getCodeDepart() + ";" +
-                        drive.getCodeArrivee() + ";" +
-                        drive.getVilleDepart() + ";" +
-                        drive.getVilleArrivee() + ";" +
-                        drive.getDepart() + ";" +
-                        drive.getRetour() + ";" +
-                        drive.getKilometres() + ";" +
-                        drive.getMotif() + ";";
-                
+            BufferedWriter bw;
+            out = response.getOutputStream();
+            try (OutputStreamWriter writer = new OutputStreamWriter(out, "UTF-8")) {
+                bw = new BufferedWriter(writer);
+                String line = ""; 
+                line += "nomchauffeur;prenomchauffeur;nomclient;prenomclient;adressedepart;adressearrivee;"
+                        + "codedepart;codearrivee;"
+                        + "communedepart;communearrivee;depart;retour;places;kilometres;motif"; 
                 bw.write(line);
                 bw.newLine();
+                // and the data
+                try {
+                    
+                    statement = db.connect();
+                    resultat = (ResultSet) statement.executeQuery("SELECT * FROM " + this.table + " ORDER BY depart, nomchauffeur, prenomchauffeur" );
+                    
+                    while (resultat.next())
+                    {
+                        
+                        line = resultat.getString("nomchauffeur") + ";" +
+                            resultat.getString("prenomchauffeur") + ";" +
+                            resultat.getString("nomclient") + ";" +
+                            resultat.getString("prenomclient") + ";" +
+                            resultat.getString("adresseDepart") + ";" +
+                            resultat.getString("adresseArrivee") + ";" +
+                            resultat.getString("codeDepart") + ";" +
+                            resultat.getString("codeArrivee") + ";" +
+                            resultat.getString("communeDepart") + ";" +
+                            resultat.getString("communeArrivee") + ";" +
+                            resultat.getTimestamp("depart") + ";" +
+                            resultat.getTimestamp("retour") + ";" +
+                            resultat.getInt("places") + ";" +
+                            resultat.getInt("kilometres") + ";" +
+                            resultat.getString("motif");
+                        bw.write(line);
+                        bw.newLine();
+                        bw.flush();
+                        cnt++;
+                    }
+                } catch ( SQLException e ) {
+
+
+                } finally {
+                if ( resultat != null )
+                    try {
+                        resultat.close();
+
+                        } catch ( SQLException ignore ) {
+                    }
+                }
+                db.close();
+                out.close();
+                bw.close();
             }
-            bw.flush();
-            bw.close();
         }
         catch(IOException e) 
         {
@@ -323,7 +352,7 @@ public class DoneRW
             return "Le fichier n'a pas été trouvé";
         }
         
-        return "Clickez ici pour les transports effectués !";
+        return "Clickez ici pour les transports effectués : "+ cnt;
     }
     
 }

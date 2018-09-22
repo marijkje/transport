@@ -5,6 +5,7 @@ package org.transport.readwrite;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +41,8 @@ public class AdminRW
     public AdminRW() throws Exception
     {
         try {
-            String filePath = AdminRW.class.getResource("/resources/users.xml").getPath();
+            URL url = AdminRW.class.getResource("/resources/users.xml");
+            String filePath = url.getPath();
             this.file = new File(filePath);
         }
         catch(Exception e) {

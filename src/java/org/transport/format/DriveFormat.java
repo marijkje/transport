@@ -165,7 +165,7 @@ public class DriveFormat
         session.setAttribute("drive", this.drive);
 
         addr = new PersonRW(personInfo);
-        session.setAttribute("googlemap", this.addr.showAddress(this.person, new ArrayList<>()));
+        session.setAttribute("googlemap", this.addr.showAddress(this.person, new ArrayList<Person>()));
     }
     
     
@@ -190,7 +190,7 @@ public class DriveFormat
         session.setAttribute("person", person);
 
         addr = new PersonRW(personInfo);
-        session.setAttribute("googlemap", this.addr.showAddress(this.person, new ArrayList<>()));
+        session.setAttribute("googlemap", this.addr.showAddress(this.person, new ArrayList<Person>()));
     }
     
     /**
@@ -341,7 +341,7 @@ public class DriveFormat
         
         try {
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            if (depart != null) drive.setDepart(format.parse(depart));
+            if (depart != null) drive.setDepart((format.parse(depart)));
             else drive.setDepart(now);
             if (retour != null && !retour.isEmpty()) drive.setRetour(format.parse(retour));
         } catch (ParseException ex) {
@@ -396,8 +396,8 @@ public class DriveFormat
         
         int heureDepart = depart.get(Calendar.HOUR_OF_DAY) * 60 + depart.get(Calendar.MINUTE);
         int heureRetour = retour.get(Calendar.HOUR_OF_DAY) * 60 + retour.get(Calendar.MINUTE);
-        int heure1 = parseInt(hours.split(",")[0]) * 60;
-        int heure2 = parseInt(hours.split(",")[1]) * 60 - time;
+        int heure1 = parseInt(hours.split("-")[0]) * 60;
+        int heure2 = parseInt(hours.split("-")[1]) * 60 - time;
         return heureDepart >= heure1 && heureRetour < heure2; // at this time ?
     }
     

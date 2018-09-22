@@ -33,8 +33,8 @@ public class Email
 
     public Email()
     {
-        from = "transportsolidaire07@gmail.com";
-        host = "smtp.gmail.com";
+        from = "transport@siteseyrieux.fr";//solidaire07@gmail.com";
+        host = "siteseyrieux.fr";//smtp.gmail.com
         session = null;
         tr = null;
         
@@ -42,8 +42,8 @@ public class Email
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.user", "transportsolidaire07");
-        props.put("mail.smtp.password", "Solidaire07360");
+        props.put("mail.smtp.user", "transport@siteseyrieux.fr");//solidaire07@gmail.com");
+        props.put("mail.smtp.password", "Solideyre07");//Solidaire07360");
         props.put("mail.smtp.port", "587");
         try {
             MailSSLSocketFactory sf;
@@ -59,7 +59,7 @@ public class Email
         auth = new Authenticator() {
             @Override
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("Solidaire07360", "Solidaire07360");
+                return new PasswordAuthentication("Solideyre07", "Solideyre07");
             }
         };
  
@@ -83,13 +83,13 @@ public class Email
             message.setFrom(new InternetAddress(from));
             message.setSubject(subject);
             message.setText(text, "UTF-8", "html");
-            
+            message.addRecipient(Message.RecipientType.CC, new InternetAddress("transportsolidaire07@gmail.com"));
             for (String toMail : toMails)
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail));
             
             if (message.getAllRecipients() == null) return "Pas d'adresses mail";
             tr = session.getTransport("smtp");
-            tr.connect(host, "transportsolidaire07", "Solidaire07360");
+            tr.connect(host, "transport@siteseyrieux.fr", "Solideyre07");
             tr.sendMessage(message, message.getAllRecipients());
             tr.close();
         } catch (MessagingException mex) 

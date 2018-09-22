@@ -21,6 +21,6 @@
             <c:import url="/forms/menu.jsp" />
             
         </header>
-            <p>Une erreur est survenue, recommencez.</p>    
+            <p>Une erreur est survenue, <c:out value="${message}"/></p>    
     </body>
 </html>

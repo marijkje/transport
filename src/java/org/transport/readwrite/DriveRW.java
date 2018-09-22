@@ -6,14 +6,21 @@ package org.transport.readwrite;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import org.transport.beans.Drive;
 import org.transport.beans.Person;
 
@@ -113,6 +120,7 @@ public class DriveRW
     
     public String write(Drive drive)
     {
+        DateFormat sqlDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String message = "";
         String nom, prenom;
         
@@ -136,7 +144,7 @@ public class DriveRW
         
         String sel = " (" + nom + ", " + prenom + ", adressedepart, adressearrivee, codedepart, codearrivee, "
                     + "communedepart, communearrivee, depart, ";
-        if (drive.getRetour()!= null && !drive.getRetour().equals("")) sel += "retour, ";
+        if (drive.getRetour()!= null) sel += "retour, ";
         sel +=  "motif, flexheure, flexdate, places) ";
         String val = "( '"  + person.getNom() + "', '"
                             + person.getPrenom() + "', '"
@@ -146,8 +154,8 @@ public class DriveRW
                             + drive.getCodeArrivee() + "', '"
                             + drive.getVilleDepart() + "', '"
                             + drive.getVilleArrivee() + "', '"
-                            + drive.getDepart() + "', '";
-        if (drive.getRetour()!= null) val += drive.getRetour() + "', '";
+                            + sqlDateFormat.format(drive.getDepart()) + "', '";
+        if (drive.getRetour()!= null) val += sqlDateFormat.format(drive.getRetour()) + "', '";
         val += drive.getMotif() + "', '"
                             + drive.getFlexHeure() + "', '"
                             + drive.getFlexDate() + "', '"
@@ -298,47 +306,53 @@ public class DriveRW
         return drive;
     }
 
-    public String getCSV(String filePath)
+    public String writeCSV(HttpServletResponse response, String path)
     {
-        BufferedWriter bw;
-        List<Drive> drives;
-        Person driver, client;
-        
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment;filename=" + path);
+        ServletOutputStream out;
         try 
         {
-            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8"));
-            String line = ""; // writing header
-            line += "nomchauffeur;prenomchauffeur;nomclient;prenomclient;adressedepart;adressearrivee;"
-                    + "codedepart;codearrivee;"
-                    + "communedepart;communearrivee;depart;retour;motif"; 
-            bw.write(line);
-            bw.newLine();
-            drives = readAll();
-            // and the data
-            for (Drive drive : drives) {
-                driver = drive.getDriver();
-                client = drive.getClient();
-                
-                line =  driver.getNom() + ";" +
-                        driver.getPrenom() + ";" +
-                        client.getNom() + ";" +
-                        client.getPrenom() + ";" +
-                        drive.getAdresseDepart() + ";" +
-                        drive.getAdresseArrivee() + ";" +
-                        drive.getCodeDepart() + ";" +
-                        drive.getCodeArrivee() + ";" +
-                        drive.getVilleDepart() + ";" +
-                        drive.getVilleArrivee() + ";" +
-                        drive.getDepart() + ";" +
-                        drive.getRetour() + ";" +
-                        drive.getMotif() + ";";
-                
+            BufferedWriter bw;
+            out = response.getOutputStream();
+            try (OutputStreamWriter writer = new OutputStreamWriter(out, "UTF-8")) {
+                bw = new BufferedWriter(writer);
+                List<Drive> drives;
+                Person driver, client;
+                String line = ""; // writing header
+                line += "nomchauffeur;prenomchauffeur;nomclient;prenomclient;adressedepart;adressearrivee;"
+                        + "codedepart;codearrivee;"
+                        + "communedepart;communearrivee;depart;retour;motif"; 
                 bw.write(line);
                 bw.newLine();
+                drives = readAll();
+                // and the data
+                for (Drive drive : drives) {
+                    driver = drive.getDriver();
+                    client = drive.getClient();
+
+                    line =  driver.getNom() + ";" +
+                            driver.getPrenom() + ";" +
+                            client.getNom() + ";" +
+                            client.getPrenom() + ";" +
+                            drive.getAdresseDepart() + ";" +
+                            drive.getAdresseArrivee() + ";" +
+                            drive.getCodeDepart() + ";" +
+                            drive.getCodeArrivee() + ";" +
+                            drive.getVilleDepart() + ";" +
+                            drive.getVilleArrivee() + ";" +
+                            drive.getDepart() + ";" +
+                            drive.getRetour() + ";" +
+                            drive.getMotif() + ";";
+
+                    bw.write(line);
+                    bw.newLine();
+                }
+                bw.flush();
+                bw.close();
+                out.close();
             }
-            bw.flush();
-            bw.close();
-        }
+        }    
         catch(IOException e) 
         {
             Logger.getLogger(PersonRW.class.getName()).log(Level.SEVERE, null, e);

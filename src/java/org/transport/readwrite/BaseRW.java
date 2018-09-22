@@ -18,25 +18,26 @@ public class BaseRW {
     private final String user;
     private final String password;
     
+    private String sqlError;
     private Connection connexion;
     private Statement statement;
     
     public BaseRW()
     {
+        sqlError = "";
         this.base = "transport";
-        this.user = "mael";
-        this.password = "mael";
-        this.url = "jdbc:postgresql://localhost:5432/" 
+        this.user = "mael1";
+        this.password = "mael1tr";
+        this.url = "jdbc:mysql://localhost:3306/" 
                 + this.base 
                 + "?user=" + this.user 
-                + "&password=" + this.password 
-                + "&create=true";
+                + "&password=" + this.password;
         try 
         {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) 
         {
-            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+            sqlError = "sql driver not found";
         }    
     }
 
@@ -44,9 +45,16 @@ public class BaseRW {
     {
         try {
             connexion = (Connection) DriverManager.getConnection( url );
+        } catch ( SQLException e ) 
+        {
+            sqlError = "Could not connect to MySQL";
+            return null;
+        }
+        try {
             statement = (Statement) connexion.createStatement();
         } catch ( SQLException e ) 
         {
+            sqlError = "Could not create sql statement";
             return null;
         }
         return statement;
@@ -68,6 +76,10 @@ public class BaseRW {
                 } catch ( SQLException ignore ) {
             }
 
+    }
+    public String error()
+    {
+    return  sqlError;
     }
     
 }

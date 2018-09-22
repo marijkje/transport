@@ -162,7 +162,7 @@ public class SendFormat
             transformText();
             subject = (String) session.getAttribute("subject");
             toMails = (List<String>) session.getAttribute("recipiants");
-            String personInfo = (String) session.getAttribute("personInfo");
+//            String personInfo = (String) session.getAttribute("personInfo");
             DriveRW drv = new DriveRW(personInfo.equals("drivers")?"offer":"appeal");
             message = drv.write(drive);
         }

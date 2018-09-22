@@ -39,7 +39,7 @@ public class DownloadSv extends HttpServlet {
         else 
         {
             request.getSession().setAttribute("expired", false);
-            DownloadFormat form = new DownloadFormat(request);
+            DownloadFormat form = new DownloadFormat(request, response);
             form.info();
             this.getServletContext().getRequestDispatcher( "/JSP/admin/download.jsp" ).forward( request, response );
         }
@@ -66,7 +66,7 @@ public class DownloadSv extends HttpServlet {
         else 
         {
             request.getSession().setAttribute("expired", false);
-            DownloadFormat form = new DownloadFormat(request);
+            DownloadFormat form = new DownloadFormat(request, response);
             form.action();
             this.getServletContext().getRequestDispatcher( "/JSP/admin/download.jsp" ).forward( request, response );
         }

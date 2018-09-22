@@ -69,6 +69,7 @@ public class AddressFormat
     
     public void info()
     {
+        String str = "";
         String act = request.getParameter("act");
         if (act ==null) act = "drivers";
         this.personInfo = act.equals("Demandeur")?"clients":"drivers";
@@ -76,6 +77,13 @@ public class AddressFormat
         session.setAttribute("personInfo", this.personInfo); // is it a client or a driver ?
         addr = new PersonRW(this.personInfo);
         this.personList = addr.readAll();
+        str = addr.error();
+     
+        if (!str.isEmpty())
+        {    
+            request.setAttribute("message", str);
+            throw new IllegalStateException(str);
+        }
         session.setAttribute("personList", this.personList);
         session.setAttribute("person", person);
         for (int year = 1910; year < 2020; year ++) years.add(Integer.toString(year));
@@ -211,6 +219,8 @@ public class AddressFormat
         validationRemarques(str);
         if (personInfo.equals("drivers"))
         {
+            int places = Integer.parseInt(request.getParameter("places"));
+            person.setPlaces(places<1?1:places);
             person.setDispo(new Dispo());
             String days = DAYS;
             for (String day : days.split(","))

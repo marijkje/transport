@@ -114,6 +114,19 @@
                 </div>
             </div>
         </c:forEach>
+        <!--places-->
+        <div class="row">
+            <label>Places disponibles: </label>
+            
+            <select name="places" class="tiny">
+                <c:forEach begin="1" end="8" var="loop">
+                <option <c:out value="${person.places == loop?'selected':''}"/>>
+                   <c:out value="${loop}"/></option>
+                </c:forEach>
+            </select>    
+
+        </div>
+        
     </c:if>
     <c:if test="${personInfo=='clients'}">
         <h1>Contact et Remarques</h1>
@@ -140,7 +153,6 @@
     <div class="row">
         <label>Transports effectués: </label><c:out value="${ person.nombre }" />
     </div>
-    <p class="${empty erreurs ? 'succes' : 'erreur'}">${message}</p>
         
     <div class="row">
         <label>Charte signé :  </label>
@@ -157,6 +169,8 @@
             </c:forEach>
         </select>
     </div>    
+    <p class="${empty erreurs ? 'succes' : 'erreur'}">${message}</p>
+
 </div>    
     
 
