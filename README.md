@@ -1,2 +1,3 @@
 # transport
-The version for the JBOSS 7 server
+The version for the Ikoula server with MySQL and Tomcat7
+
